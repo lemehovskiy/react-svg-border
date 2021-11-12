@@ -1,0 +1,33 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "react-app",
+        "airbnb",
+        "airbnb-typescript",
+        "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "plugins": [
+        "prettier",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "prettier/prettier": 1,
+        "jsx-a11y/click-events-have-key-events": 0,
+        "jsx-a11y/no-static-element-interactions": 0,
+        "jsx-a11y/label-has-associated-control": 0,
+        "jsx-a11y/no-noninteractive-element-interactions": 0,
+        "react/jsx-props-no-spreading": 0,
+        "react/require-default-props": 0,
+        "no-eval": 0,
+        "func-names": 0
+    }
+}
