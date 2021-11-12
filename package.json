@@ -1,8 +1,12 @@
 {
   "name": "react-svg-border",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React svg border",
-  "keywords": ["react", "svg", "border"],
+  "keywords": [
+    "react",
+    "svg",
+    "border"
+  ],
   "main": "dist/index.js",
   "scripts": {
     "start": "tsc --watch",
