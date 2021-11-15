@@ -16,10 +16,8 @@
     <br> 
 </p>
 
-## 📝 Table of Contents
-
-- [About](#about)
-- [Getting Started](#getting_started)
+## Demo <a name="demo"></a>
+[Codesandbox](https://codesandbox.io/s/react-svg-border-demo-3kgiz?file=/src/App.tsx)
 
 ## 🧐 About <a name = "about"></a>
 
