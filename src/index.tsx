@@ -4,11 +4,7 @@ import useParseConfigToPolyline from './hooks/useParseConfigToPolyline';
 
 const useStyles = createUseStyles({
   wrapper: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
+    position: 'relative',
   },
   root: {
     width: '100%',
@@ -19,7 +15,7 @@ const useStyles = createUseStyles({
     overflow: 'visible',
   },
   childrenWrap: ({ strokeWidth }: { strokeWidth: number }) => ({
-    position: 'absolute',
+    position: 'relative',
     left: `${strokeWidth}px`,
     top: `${strokeWidth}px`,
     bottom: `${strokeWidth}px`,
