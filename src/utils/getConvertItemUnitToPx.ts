@@ -15,7 +15,7 @@ const getConvertItemUnitToPx = (
     return getConvertedCalcToPx(value, size);
   }
   if (/px$/.test(value)) {
-    return 'px';
+    return parseInt(value, 10);
   }
   if (/%$/.test(value)) {
     return (size / 100) * parseInt(value, 10);

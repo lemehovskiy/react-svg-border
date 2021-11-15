@@ -18,6 +18,12 @@ test('test polyline config with calc', () => {
   ).toEqual('1, 1, 95, 5');
 });
 
+test('test polyline config with extra px units', () => {
+  expect(
+    parseConfigToPolyline(['1, 1   px', 'calc(100% - 5px), 5'], [100, 100])
+  ).toEqual('1, 1, 95, 5');
+});
+
 test('test polyline config with positions', () => {
   expect(
     parseConfigToPolyline(
