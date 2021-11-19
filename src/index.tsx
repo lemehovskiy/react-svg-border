@@ -24,23 +24,23 @@ const useStyles = createUseStyles({
 });
 
 interface SvgBorderProps {
+  borderConf: string[];
+  children: JSX.Element | string;
+  classes?: object;
   fill?: string;
   stroke?: string;
   strokeWidth?: number;
   type?: 'polygon' | 'polyline';
-  borderConf: string[];
-  children: JSX.Element | string;
-  classes?: object;
 }
 
 const SvgBorder = function ({
+  borderConf,
+  children,
+  classes = {},
   fill = 'none',
   stroke = '#000',
   strokeWidth = 1,
   type = 'polygon',
-  borderConf,
-  children,
-  classes = {},
 }: SvgBorderProps) {
   const defaultClasses = useStyles({ strokeWidth });
 
