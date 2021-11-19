@@ -95,7 +95,7 @@ App.module.scss
 
 ### Result
 
-![Demo](https://user-images.githubusercontent.com/11173488/141776810-b95c112b-8d03-4db9-a3d2-88a8577b2272.gif)
+![Demo](https://user-images.githubusercontent.com/11173488/142673220-772d95e9-941c-43d6-9995-f2d9deb9ba06.gif)
 
 ## API
 
