@@ -99,16 +99,15 @@ App.module.scss
 
 ## API
 
-| name                                        | description                                                                          | type                  | default   |
-| ------------------------------------------- | ------------------------------------------------------------------------------------ | --------------------- | --------- |
-| borderConf                                  | Cordinates of SVG. See Border config API below for more details                      | string[]              |           |
-| children                                    | The content of the component                                                         | JSX.Element, string   | string    |
-| classes                                     | Override the styles applied to the component. See CSS API below for more details     | object                |           |
-| fill                                        | Fill svg property                                                                    | string                | 'none'    |
-| stroke                                      | Stroke svg property                                                                  | string                | '#000'    |
-| strokeWidth                                 | Stroke width svg property, be aware this property used in                            |                       |           |
-| calculating padding space for children wrap | number                                                                               | 1                     |           |
-| type                                        | Define type of svg, if you want to prevent connect last point to first, use polyline | 'polyline', 'polygon' | 'polygon' |
+| name        | description                                                                                           | type                  | default   |
+| ----------- | ----------------------------------------------------------------------------------------------------- | --------------------- | --------- |
+| borderConf  | Cordinates of SVG. See Border config API below for more details                                       | string[]              |           |
+| children    | The content of the component                                                                          | JSX.Element, string   | string    |
+| classes     | Override the styles applied to the component. See CSS API below for more details                      | object                |           |
+| fill        | Fill svg property                                                                                     | string                | 'none'    |
+| stroke      | Stroke svg property                                                                                   | string                | '#000'    |
+| strokeWidth | Stroke width svg property, be aware this property used in calculating padding space for children wrap | number                | 1         |
+| type        | Defining type of svg, if you want to prevent connect last point to first, use polyline                | 'polyline', 'polygon' | 'polygon' |
 
 ## Border config API
 
