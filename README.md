@@ -18,7 +18,8 @@
 
 ## Demo <a name="demo"></a>
 
-[Codesandbox](https://codesandbox.io/s/react-svg-border-demo-3kgiz?file=/src/App.tsx)
+[Simple](https://codesandbox.io/s/react-svg-border-demo-3kgiz?file=/src/App.tsx)<br>
+[Progress animation](https://codesandbox.io/s/react-svg-border-progress-animation-demo-m2kp6?file=/src/App.tsx)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -108,6 +109,7 @@ App.module.scss
 | stroke      | Stroke svg property                                                                                   | string                | '#000'    |
 | strokeWidth | Stroke width svg property, be aware this property used in calculating padding space for children wrap | number                | 1         |
 | type        | Defining type of svg, if you want to prevent connect last point to first, use polyline                | 'polyline', 'polygon' | 'polygon' |
+| progress    | Set drawing progress                                                                                  | number                | 1          |
 
 ## Border config API
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import useParseConfigToPolyline from './hooks/useParseConfigToPolyline';
+import usePathDraw from './hooks/usePathDraw';
 
 const useStyles = createUseStyles({
   wrapper: {
@@ -31,6 +32,7 @@ interface SvgBorderProps {
   stroke?: string;
   strokeWidth?: number;
   type?: 'polygon' | 'polyline';
+  progress?: number;
 }
 
 const SvgBorder = function ({
@@ -41,6 +43,7 @@ const SvgBorder = function ({
   stroke = '#000',
   strokeWidth = 1,
   type = 'polygon',
+  progress = 1,
 }: SvgBorderProps) {
   const defaultClasses = useStyles({ strokeWidth });
 
@@ -51,11 +54,19 @@ const SvgBorder = function ({
     strokeWidth
   );
 
+  const { strokeDashoffset, strokeDasharray, pathRef } = usePathDraw(
+    isInited,
+    progress
+  );
+
   const elementProps = {
     points: polylinePoints || '',
     fill,
     stroke,
     strokeWidth,
+    strokeDashoffset,
+    strokeDasharray,
+    ref: pathRef,
   };
 
   return (
