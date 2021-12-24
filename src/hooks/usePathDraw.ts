@@ -6,7 +6,9 @@ export default function usePathDraw(isInited: boolean, progress: number) {
   const pathRef = useRef<SVGPolygonElement>(null);
 
   function handleResize() {
-    setTotalLength(pathRef!.current!.getTotalLength());
+    if (pathRef && pathRef.current) {
+      setTotalLength(pathRef!.current!.getTotalLength());
+    }
   }
 
   useEffect(() => {

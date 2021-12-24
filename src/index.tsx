@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { createUseStyles } from 'react-jss';
 import useParseConfigToPolyline from './hooks/useParseConfigToPolyline';
-import usePathDraw from './hooks/usePathDraw';
+import { SvgBorderProps, FiguresType, AttributeType } from './types';
+import Figure from './Figure';
+import getFiguresWithDefaultParams from './utils/getFiguresWithDefaultParams';
 
 const useStyles = createUseStyles({
   wrapper: {
@@ -17,64 +19,72 @@ const useStyles = createUseStyles({
   },
   childrenWrap: ({ strokeWidth }: { strokeWidth: number }) => ({
     position: 'relative',
-    left: `${strokeWidth}px`,
-    top: `${strokeWidth}px`,
-    bottom: `${strokeWidth}px`,
-    right: `${strokeWidth}px`,
+    paddingLeft: `${strokeWidth}px`,
+    paddingRight: `${strokeWidth}px`,
+    paddingTop: `${strokeWidth}px`,
+    paddingBottom: `${strokeWidth}px`,
   }),
 });
 
-interface SvgBorderProps {
-  borderConf: string[];
-  children: JSX.Element | string;
-  classes?: object;
-  fill?: string;
-  stroke?: string;
-  strokeWidth?: number;
-  type?: 'polygon' | 'polyline';
-  progress?: number;
-}
-
 const SvgBorder = function ({
-  borderConf,
+  figures,
+  figuresGlobalParams = {},
   children,
   classes = {},
-  fill = 'none',
-  stroke = '#000',
-  strokeWidth = 1,
-  type = 'polygon',
-  progress = 1,
+  progress = [],
 }: SvgBorderProps) {
-  const defaultClasses = useStyles({ strokeWidth });
+  const figuresWithDefaults = useMemo(
+    () =>
+      getFiguresWithDefaultParams(figures, {
+        fill: figuresGlobalParams.fill,
+        stroke: figuresGlobalParams.stroke,
+        strokeWidth: figuresGlobalParams.strokeWidth,
+        type: figuresGlobalParams.type,
+      }),
+    [
+      figures,
+      figuresGlobalParams.fill,
+      figuresGlobalParams.stroke,
+      figuresGlobalParams.strokeWidth,
+      figuresGlobalParams.type,
+    ]
+  );
 
+  const { polylinePoints, componentRef, isInited } =
+    useParseConfigToPolyline(figuresWithDefaults);
+
+  const maxStrokeWidth = useMemo(
+    () => Math.max(...figuresWithDefaults.map((o) => o.strokeWidth)),
+    [figuresWithDefaults]
+  );
+
+  const defaultClasses = useStyles({ strokeWidth: maxStrokeWidth });
   const mergedClasses = { ...defaultClasses, ...classes };
-
-  const { polylinePoints, componentRef, isInited } = useParseConfigToPolyline(
-    borderConf,
-    strokeWidth
-  );
-
-  const { strokeDashoffset, strokeDasharray, pathRef } = usePathDraw(
-    isInited,
-    progress
-  );
-
-  const elementProps = {
-    points: polylinePoints || '',
-    fill,
-    stroke,
-    strokeWidth,
-    strokeDashoffset,
-    strokeDasharray,
-    ref: pathRef,
-  };
 
   return (
     <div ref={componentRef} className={mergedClasses.wrapper}>
       {isInited && (
         <svg className={mergedClasses.root}>
-          {type === 'polygon' && <polygon {...elementProps} />}
-          {type === 'polyline' && <polyline {...elementProps} />}
+          {polylinePoints.map((points, index) => {
+            const { fill, stroke, strokeWidth, type } =
+              figuresWithDefaults[index];
+            const attributes = {
+              points,
+              fill,
+              stroke,
+              strokeWidth,
+            } as AttributeType;
+
+            return (
+              <Figure
+                key={points}
+                attributes={attributes}
+                type={type}
+                isInited={isInited}
+                progress={progress[index] === undefined ? 1 : progress[index]}
+              />
+            );
+          })}
         </svg>
       )}
       <div className={mergedClasses.childrenWrap}>{children}</div>
@@ -83,3 +93,4 @@ const SvgBorder = function ({
 };
 
 export default SvgBorder;
+export type { FiguresType };
