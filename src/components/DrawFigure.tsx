@@ -1,16 +1,16 @@
 import React from 'react';
-import usePathDraw from './hooks/usePathDraw';
-import { FigureProps } from './types';
+import usePathDraw from '../hooks/usePathDraw';
+import { DrawFigureProps } from '../types';
 
-function areEqual(prevProps: FigureProps, nextProps: FigureProps) {
-  return prevProps.progress === nextProps.progress;
+function areEqual(prevProps: DrawFigureProps, nextProps: DrawFigureProps) {
+  return prevProps.drawProgress === nextProps.drawProgress;
 }
 
-const Figure = React.memo(
-  ({ attributes, isInited, progress, type }: FigureProps) => {
+const DrawFigure = React.memo(
+  ({ attributes, isInited, drawProgress, type }: DrawFigureProps) => {
     const { strokeDashoffset, strokeDasharray, pathRef } = usePathDraw(
       isInited,
-      progress
+      drawProgress
     );
 
     const elementAttr = {
@@ -29,4 +29,4 @@ const Figure = React.memo(
   areEqual
 );
 
-export default Figure;
+export default DrawFigure;

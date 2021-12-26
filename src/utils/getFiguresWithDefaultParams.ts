@@ -1,24 +1,20 @@
-import { FiguresType, FigureType, FiguresGlobalParams } from '../types';
+import { FiguresType, FigureType, FiguresDefaultParams } from '../types';
 import mergeProps from './mergeProps';
 
 type FillFiguresReturn = Required<FigureType>;
 
 const getFiguresWithDefaultParams = (
   figures: FiguresType,
-  figuresGlobalParams: FiguresGlobalParams
+  figuresDefaultParams: FiguresDefaultParams
 ): FillFiguresReturn[] => {
-  //   console.log(figures);
-  //   console.log(figuresGlobalParams);
   const updatedFigures = [] as FillFiguresReturn[];
   figures.forEach((figure) => {
-    const figuresWithDefaults = mergeProps([figuresGlobalParams, figure], {
+    const figuresWithDefaults = mergeProps([figuresDefaultParams, figure], {
       fill: 'none',
       stroke: '#000',
       strokeWidth: 1,
       type: 'polygon',
     }) as FillFiguresReturn;
-
-    // console.log(figuresWithDefaults);
 
     updatedFigures.push(figuresWithDefaults);
   });

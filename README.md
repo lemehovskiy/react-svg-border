@@ -20,7 +20,8 @@
 
 [Simple](https://codesandbox.io/s/react-svg-border-demo-3kgiz?file=/src/App.tsx)<br>
 [Progress animation](https://codesandbox.io/s/react-svg-border-progress-animation-demo-m2kp6?file=/src/App.tsx)<br>
-[Multiple paths](https://codesandbox.io/s/multiple-paths-demo-3jzqw?file=/src/App.tsx)
+[Multiple paths](https://codesandbox.io/s/multiple-paths-demo-3jzqw?file=/src/App.tsx)<br>
+[Morph demo](https://codesandbox.io/s/morph-demo-ouu1u?file=/src/App.tsx)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -105,25 +106,33 @@ App.module.scss
 
 ## API
 
-| name                | description                                                                                                                                    | type                | default |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ------- |
-| figures*            | Here you can define multiple figures with individual properties, see [Figure Api](#figure-api) below for more details                          | FigureType[]        |         |
-| figuresGlobalParams | Used for define default figure params, sames as [Figure Api](#figure-api) except path property                                                 | FiguresGlobalParams | {}      |
-| children*           | The content of the component                                                                                                                   | JSX.Element, string | string  |
-| classes             | Override the styles applied to the component. See CSS API below for more details                                                               | object              | {}      |
-| progress            | Set drawing progress. See [Progress animation demo](https://codesandbox.io/s/react-svg-border-progress-animation-demo-m2kp6?file=/src/App.tsx) | number[]            | []      |
+| name                 | description                                                                                                                                    | type                 | default |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ------- |
+| figures*             | Here you can define multiple figures with individual properties, see [Figure Api](#figure-api) below for more details                          | FigureType[]         |         |
+| figuresDefaultParams | Used for define default figure params, sames as [Figure Api](#figure-api) except path property                                                 | FiguresDefaultParams | {}      |
+| children*            | The content of the component                                                                                                                   | JSX.Element, string  | string  |
+| classes              | Override the styles applied to the component. See CSS API below for more details                                                               | object               | {}      |
+| drawProgress         | Set drawing progress. See [Progress animation demo](https://codesandbox.io/s/react-svg-border-progress-animation-demo-m2kp6?file=/src/App.tsx) | number[]             | []      |
+| morphProgress        | Set morph progress. See [Morph animation demo](https://codesandbox.io/s/morph-demo-ouu1u?file=/src/App.tsx)                                    | number[]             | []      |
 
 ## Figure API
 
-| key         | description                                                                                           | type                    | default   |
-| ----------- | ----------------------------------------------------------------------------------------------------- | ----------------------- | --------- |
-| path*       | Cordinates of SVG. See [Path API](#path-api) below for more details                                   | string[]                |           |
-| type        | Defining type of svg, if you want to prevent connect last point to first, use polyline                | 'polyline' \| 'polygon' | 'polygon' |
-| fill        | Fill svg property                                                                                     | string                  | 'none'    |
-| stroke      | Stroke svg property                                                                                   | string                  | '#000'    |
-| strokeWidth | Stroke width svg property, be aware this property used in calculating padding space for children wrap | number                  | 1         |
+| key         | description                                                                                           | type                                       | default   |
+| ----------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------ | --------- |
+| path*       | Cordinates of SVG. See [Path API](#path-api) below for more details                                   | (string \| { from: string; to: string })[] |           |
+| type        | Defining type of svg, if you want to prevent connect last point to first, use polyline                | 'polyline' \| 'polygon'                    | 'polygon' |
+| fill        | Fill svg property                                                                                     | string                                     | 'none'    |
+| stroke      | Stroke svg property                                                                                   | string                                     | '#000'    |
+| strokeWidth | Stroke width svg property, be aware this property used in calculating padding space for children wrap | number                                     | 1         |
 
-## Path API
+## Path type
+
+| type                       | decription                                                                                           |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- |
+| string                     | Define static position. See [String coordinate type](#string-coordinate-type) below for more details |
+| {from: string; to: string} | Define init(from) value and morph(to) value.                                                          |
+
+## String coordinate type
 
 Each cordinates should containt position by axis X and Y separated by comma.
 | type          | description                                                                                                  | example                                                                                                                                                                                                                                                                                                                           |
