@@ -1,5 +1,11 @@
 type FigureTags = 'polygon' | 'polyline';
 
+export type PathType = (string | { from: string; to: string })[];
+export type ParsedPathType = (
+  | [number, number]
+  | { from: [number, number]; to: [number, number] }
+)[];
+
 export type AttributeType = {
   points: string;
   fill: string;
@@ -8,7 +14,8 @@ export type AttributeType = {
 };
 
 export type FigureType = {
-  path: string[];
+  path: PathType;
+  pathMorphByIndex?: { [index: number]: string };
   type?: FigureTags;
   fill?: string;
   stroke?: string;
@@ -17,19 +24,25 @@ export type FigureType = {
 
 export type FiguresType = FigureType[];
 
-export type FiguresGlobalParams = Omit<FigureType, 'path'>;
+export type FiguresDefaultParams = Omit<FigureType, 'path'>;
 
 export interface SvgBorderProps {
   figures: FiguresType;
-  figuresGlobalParams?: FiguresGlobalParams;
+  figuresDefaultParams?: FiguresDefaultParams;
   children: JSX.Element | string;
   classes?: object;
-  progress?: number[];
+  drawProgress?: number[];
+  morphProgress?: number[];
 }
+
+export type DrawFigureProps = {
+  attributes: AttributeType;
+  isInited: boolean;
+  drawProgress: number;
+  type: FigureTags;
+};
 
 export type FigureProps = {
   attributes: AttributeType;
-  isInited: boolean;
-  progress: number;
   type: FigureTags;
 };

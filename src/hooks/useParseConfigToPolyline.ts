@@ -1,12 +1,21 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import useEventListener from './useEventListener';
-import parseConfigToPolyline from '../utils/parseConfigToPolyline';
-import { FiguresType } from '../types';
+import { FiguresType, ParsedPathType } from '../types';
+import parseConfigToArrayPolyline from '../utils/parseConfigToArrayPolyline';
+import getFiguresMorphPolylinesArrayByProgress from '../utils/getFiguresMorphPolylinesArrayByProgress';
+import convertPolylinesArrayToPolylineAttribute from '../utils/convertPolylinesArrayToPolylineAttribute';
 
-const useParseConfigToPolyline = (figures: FiguresType) => {
+const useParseConfigToPolyline = (
+  figures: FiguresType,
+  morphProgress: number[]
+) => {
   const componentRef = useRef(null);
   const [size, setSize] = useState([0, 0]);
-  const [polylinePoints, setPolylinePoints] = useState<string[]>([]);
+
+  const [figuresPolylinesArray, setInitPolylinesArray] = useState<
+    ParsedPathType[]
+  >([]);
+
   const [isInited, setIsInited] = useState(false);
   function handleResize() {
     if (!componentRef.current) return;
@@ -17,19 +26,41 @@ const useParseConfigToPolyline = (figures: FiguresType) => {
   useEffect(() => {
     if (size[0] === 0 || size[1] === 0) return;
 
-    const polylines = [] as string[];
+    const newFiguresInitPolylinesArray = [] as ParsedPathType[];
+
     figures.forEach((figure) => {
-      polylines.push(
-        parseConfigToPolyline(figure.path, size, figure.strokeWidth)
+      const polylineArray = parseConfigToArrayPolyline(
+        figure.path,
+        size,
+        figure.strokeWidth
       );
+
+      newFiguresInitPolylinesArray.push(polylineArray);
     });
 
-    setPolylinePoints(polylines);
+    setInitPolylinesArray(newFiguresInitPolylinesArray);
 
     if (!isInited) {
       setIsInited(true);
     }
   }, [figures, size, isInited]);
+
+  const figuresMorphPolylinesArrayByProgress = useMemo(
+    () =>
+      getFiguresMorphPolylinesArrayByProgress(
+        figuresPolylinesArray,
+        morphProgress
+      ),
+    [figuresPolylinesArray, morphProgress]
+  );
+
+  const polylinePoints = useMemo(
+    () =>
+      convertPolylinesArrayToPolylineAttribute(
+        figuresMorphPolylinesArrayByProgress
+      ),
+    [figuresMorphPolylinesArrayByProgress]
+  );
 
   useEffect(() => {
     handleResize();

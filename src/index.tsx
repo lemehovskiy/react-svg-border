@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 import { createUseStyles } from 'react-jss';
 import useParseConfigToPolyline from './hooks/useParseConfigToPolyline';
 import { SvgBorderProps, FiguresType, AttributeType } from './types';
-import Figure from './Figure';
+import DrawFigure from './components/DrawFigure';
+import Figure from './components/Figure';
 import getFiguresWithDefaultParams from './utils/getFiguresWithDefaultParams';
 
 const useStyles = createUseStyles({
@@ -28,30 +29,49 @@ const useStyles = createUseStyles({
 
 const SvgBorder = function ({
   figures,
-  figuresGlobalParams = {},
+  figuresDefaultParams = {},
   children,
   classes = {},
-  progress = [],
+  drawProgress = [],
+  morphProgress = [],
 }: SvgBorderProps) {
+  const drawProgressNormalized = useMemo(
+    () => [
+      ...drawProgress,
+      ...Array(figures.length - drawProgress.length).fill(null),
+    ],
+    [drawProgress, figures.length]
+  );
+
+  const morphProgressNormalized = useMemo(
+    () => [
+      ...morphProgress,
+      ...Array(figures.length - morphProgress.length).fill(0),
+    ],
+    [morphProgress, figures.length]
+  );
+
   const figuresWithDefaults = useMemo(
     () =>
       getFiguresWithDefaultParams(figures, {
-        fill: figuresGlobalParams.fill,
-        stroke: figuresGlobalParams.stroke,
-        strokeWidth: figuresGlobalParams.strokeWidth,
-        type: figuresGlobalParams.type,
+        fill: figuresDefaultParams.fill,
+        stroke: figuresDefaultParams.stroke,
+        strokeWidth: figuresDefaultParams.strokeWidth,
+        type: figuresDefaultParams.type,
       }),
     [
       figures,
-      figuresGlobalParams.fill,
-      figuresGlobalParams.stroke,
-      figuresGlobalParams.strokeWidth,
-      figuresGlobalParams.type,
+      figuresDefaultParams.fill,
+      figuresDefaultParams.stroke,
+      figuresDefaultParams.strokeWidth,
+      figuresDefaultParams.type,
     ]
   );
 
-  const { polylinePoints, componentRef, isInited } =
-    useParseConfigToPolyline(figuresWithDefaults);
+  const { polylinePoints, componentRef, isInited } = useParseConfigToPolyline(
+    figuresWithDefaults,
+    morphProgressNormalized
+  );
 
   const maxStrokeWidth = useMemo(
     () => Math.max(...figuresWithDefaults.map((o) => o.strokeWidth)),
@@ -75,13 +95,18 @@ const SvgBorder = function ({
               strokeWidth,
             } as AttributeType;
 
+            if (drawProgressNormalized[index] === null) {
+              return (
+                <Figure key={points} attributes={attributes} type={type} />
+              );
+            }
             return (
-              <Figure
+              <DrawFigure
                 key={points}
                 attributes={attributes}
                 type={type}
                 isInited={isInited}
-                progress={progress[index] === undefined ? 1 : progress[index]}
+                drawProgress={drawProgressNormalized[index]}
               />
             );
           })}
