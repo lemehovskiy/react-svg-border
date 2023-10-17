@@ -25,13 +25,17 @@
 
 ## 🧐 About <a name = "about"></a>
 
-This project solves the issue of creating a responsive border or background based on SVG witch allows drawing any figure instead of a rectangle. Instead of this component, you can use regular SVG images but in this case, you lose responsive behavior.
+This project addresses the challenge of creating responsive borders or backgrounds with a dynamic ratio. Traditional SVG images lack this responsive behavior, making this component a valuable tool for enhancing web design.
+
+## Features <a name = "features"></a>
+
+This project addresses the challenge of creating responsive borders or backgrounds with a dynamic ratio. Traditional SVG images lack this responsive behavior, making this component a valuable tool for enhancing web design.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
 ### Installing
 
-```
+```sh
 npm i react-svg-border
 ```
 
