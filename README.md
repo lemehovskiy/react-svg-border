@@ -27,10 +27,6 @@
 
 This project addresses the challenge of creating responsive borders or backgrounds with a dynamic ratio. Traditional SVG images lack this responsive behavior, making this component a valuable tool for enhancing web design.
 
-## Features <a name = "features"></a>
-
-This project addresses the challenge of creating responsive borders or backgrounds with a dynamic ratio. Traditional SVG images lack this responsive behavior, making this component a valuable tool for enhancing web design.
-
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
 ### Installing

@@ -3,3 +3,8 @@ webpack.config.js
 webpack.config.d.ts
 tsconfig.json
 /src
+.husky
+.github
+.eslintignore
+.eslintrc.json
+.prettierrc.json
